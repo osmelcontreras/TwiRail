@@ -2,6 +2,7 @@ package com.app.phonetree.servlet.ivr;
 
 import com.twilio.twiml.voice.Gather;
 import com.twilio.twiml.voice.Play; //might not use
+import com.twilio.twiml.voice.Say;
 import com.twilio.twiml.TwiMLException;
 import com.twilio.twiml.VoiceResponse;
 
@@ -18,8 +19,14 @@ public class WelcomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
 	protected void doPost(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws ServletException, IOException {
+		Say greet = new Say.Builder("Hello, welcome to Affiliate Program. Listen to the IVR")
+			  .voice(Say.Voice.ALICE)
+  			  .language(Say.Language.EN_GB)
+  			  .build();
+		
 		VoiceResponse response = new VoiceResponse.Builder()
-                .gather(new Gather.Builder()
+                .say(greet)
+				.gather(new Gather.Builder()
                         .action("/menu/show")
                         .numDigits(1)
                         .build())

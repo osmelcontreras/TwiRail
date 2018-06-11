@@ -65,12 +65,11 @@ public class ShowServlet extends HttpServlet {
     			  .language(Say.Language.EN_GB)
     			  .build();
     			 
-    	  Gather gatherAffiliateCode = new Gather.Builder().inputs(
-    	          Arrays.asList(Gather.Input.DTMF, Gather.Input.SPEECH))
-    	            .timeout(3).numDigits(3).say(say).build();  //3-digit Affiliate code
+    	  Gather gatherAffiliateCode = new Gather.Builder().input("speech")
+    	            .say(say).build();  //3-digit Affiliate code
     	  			VoiceResponse Coderesponse = new VoiceResponse.Builder().gather(gatherAffiliateCode)
     	            .build();
-    	  			
+
     	  			try {
     	  	            System.out.println(Coderesponse.toXml());
     	  	        } catch (TwiMLException e) {
