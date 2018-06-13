@@ -22,9 +22,8 @@ public class ShowServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws ServletException, IOException {
 		
-		String selectedOption = new servletRequest.getParameter("Digits");
-		
-		VoiceResponse response;
+		String selectedOption = servletRequest.getParameter("Digits");
+		VoiceResponse response = null;
 		switch(selectedOption) {
 		case "1":
 			response = getSchedulerAssist();
@@ -65,21 +64,20 @@ public class ShowServlet extends HttpServlet {
     			  .language(Say.Language.EN_GB)
     			  .build();
     			 
-    	  Gather gatherAffiliateCode = new Gather.Builder().input("speech")
-    	            .say(say).build();  //3-digit Affiliate code
-    	  			VoiceResponse Coderesponse = new VoiceResponse.Builder().gather(gatherAffiliateCode)
-    	            .build();
-
-    	  			try {
-    	  	            System.out.println(Coderesponse.toXml());
-    	  	        } catch (TwiMLException e) {
-    	  	            e.printStackTrace();
-    	  	        }
-    	  		
+    	  Gather gatherAffiliateCode = new Gather.Builder().build();
+    	  VoiceResponse Coderesponse = new VoiceResponse.Builder().gather(gatherAffiliateCode)
+    	          .build();
+	
     	  VoiceResponse response = new VoiceResponse.Builder()
     			  .say(say)
     			  .gather(gatherAffiliateCode)
     			  .build();
+    	  
+    	  try {
+	            System.out.println(Coderesponse.toXml());
+	        } catch (TwiMLException e) {
+	            e.printStackTrace();
+	        }
     
     	  return response;
     			
